@@ -40,8 +40,16 @@ public class Trip {
     @OneToMany(
             mappedBy = "trip",
             cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
     )
     @ToString.Exclude
     private List<Order> orders = new ArrayList<>();
+
+
+    public boolean addOrder(Order order) {
+        if (order == null) return false;
+        order.setTrip(this);
+        return orders.add(order);
+    }
 }

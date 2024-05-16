@@ -35,9 +35,16 @@ public class Order {
     @OneToMany(
             mappedBy = "order",
             cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
     )
     @ToString.Exclude
     private List<Article> articles;
 
+
+    public boolean addArticle(Article article) {
+        if (article == null) return false;
+        article.setOrder(this);
+        return articles.add(article);
+    }
 }

@@ -29,8 +29,16 @@ public class User {
     @OneToMany(
             mappedBy = "user",
             cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
     )
     @ToString.Exclude
     private List<Trip> trips;
+
+
+    public boolean addTrip(Trip trip) {
+        if (trip == null) return false;
+        trip.setUser(this);
+        return trips.add(trip);
+    }
 }

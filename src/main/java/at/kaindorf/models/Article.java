@@ -26,8 +26,10 @@ public class Article {
             fetch = FetchType.EAGER
     )
     @JoinColumn(
-            updatable = false,
-            foreignKey = @ForeignKey(name = "article_order_fk")
+            name = "realOrder"
     )
     private Order order;
+
+
+
 }

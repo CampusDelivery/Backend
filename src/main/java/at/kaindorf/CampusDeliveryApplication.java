@@ -1,14 +1,23 @@
 package at.kaindorf;
 
+import at.kaindorf.models.Article;
+import at.kaindorf.models.Order;
+import at.kaindorf.models.Trip;
+import at.kaindorf.models.User;
+import at.kaindorf.repositories.UserRepository;
 import com.github.javafaker.Faker;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
@@ -18,7 +27,49 @@ public class CampusDeliveryApplication {
     }
 
 
-    Faker faker = new Faker();
+    @Autowired
+    private UserRepository userRepository;
 
+    private final Faker faker = new Faker();
+
+    @PostConstruct
+    public void init() {
+
+        User user1 = new User(faker.internet().emailAddress(), faker.name().firstName(), faker.name().lastName(), faker.internet().password(3,5), new ArrayList<>());
+        User user2 = new User(faker.internet().emailAddress(), faker.name().firstName(), faker.name().lastName(), faker.internet().password(3,5), new ArrayList<>());
+        User user3 = new User(faker.internet().emailAddress(), faker.name().firstName(), faker.name().lastName(), faker.internet().password(3,5), new ArrayList<>());
+
+        Trip trip1 = new Trip(null, faker.address().cityName(), LocalDate.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
+        Trip trip2 = new Trip(null, faker.address().cityName(), LocalDate.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
+        Trip trip3 = new Trip(null, faker.address().cityName(), LocalDate.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
+
+        Order order1 = new Order(null, faker.name().fullName(), null, new ArrayList<>());
+        Order order2 = new Order(null, faker.name().fullName(), null, new ArrayList<>());
+        Order order3 = new Order(null, faker.name().fullName(), null, new ArrayList<>());
+
+        Article article1 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
+        Article article2 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
+        Article article3 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
+        Article article4 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
+
+        order1.addArticle(article1);
+        order1.addArticle(article2);
+        order1.addArticle(article3);
+        order1.addArticle(article4);
+
+
+        trip1.addOrder(order1);
+        trip1.addOrder(order2);
+        trip1.addOrder(order3);
+
+        user1.addTrip(trip1);
+        user1.addTrip(trip2);
+        user1.addTrip(trip3);
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+
+    }
 
 }
