@@ -1,6 +1,7 @@
 package at.kaindorf.service.trip;
 
 import at.kaindorf.models.Trip;
+import at.kaindorf.models.User;
 import at.kaindorf.repositories.TripRepository;
 import at.kaindorf.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,10 @@ public class TripServiceImp implements TripService {
     private final UserRepository userRepository;
 
     @Override
-    public Trip createTrip(Trip trip) throws Exception {
+    public Trip createTrip( Trip trip, String email) throws Exception {
         if(trip.getDestination().isEmpty() || trip.getTime() == null || trip.getMaxNumberOfOrders() == 0) throw new Exception("Missing Attribute");
-        if(trip.getUser() == null){
-
-        }
-
+        Optional<User> user = userRepository.findByEmail(email);
+        trip.setUser(user.get());
         return tripRepository.save(trip);
     }
 

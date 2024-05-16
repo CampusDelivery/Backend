@@ -1,7 +1,6 @@
 package at.kaindorf.controller;
 
 import at.kaindorf.models.User;
-import at.kaindorf.service.user.UserService;
 import at.kaindorf.service.user.UserServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +44,12 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<User> delete(@RequestBody User user) {
+        userServiceImp.delete(user);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         Optional<User> dbUser = userServiceImp.getUserByEmail(user.getEmail());
@@ -52,9 +57,9 @@ public class UserController {
             if(dbUser.get().getPassword().equals(user.getPassword())) {
                 return ResponseEntity.ok().body(dbUser.get());
             }
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();   //400 bad request --> passwort stimmt nicht
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();         //404 not found --> email existiert nicht
     }
 
 }
