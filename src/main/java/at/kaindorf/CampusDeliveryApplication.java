@@ -17,15 +17,8 @@ public class CampusDeliveryApplication {
         SpringApplication.run(CampusDeliveryApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner() {
-        return args -> {
-            Faker faker = new Faker();
 
-
-
-        };
-    }
+    Faker faker = new Faker();
 
 
 }
