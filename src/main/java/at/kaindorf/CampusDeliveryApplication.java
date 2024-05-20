@@ -50,10 +50,10 @@ public class CampusDeliveryApplication {
         Order order2 = new Order(null, faker.name().fullName(), null, new ArrayList<>());
         Order order3 = new Order(null, faker.name().fullName(), null, new ArrayList<>());
 
-        Article article1 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
-        Article article2 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
-        Article article3 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
-        Article article4 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
+        Article article1 = new Article(null, faker.food().dish(),  null);
+        Article article2 = new Article(null, faker.food().dish(),  null);
+        Article article3 = new Article(null, faker.food().dish(),  null);
+        Article article4 = new Article(null, faker.food().dish(),  null);
         List<Article> articles = new ArrayList<>();
         articles.add(article1);
         articles.add(article2);
