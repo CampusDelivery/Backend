@@ -43,6 +43,7 @@ public class Trip {
             fetch = FetchType.EAGER,
             orphanRemoval = true
     )
+    @JsonIgnore
     @ToString.Exclude
     private List<Order> orders = new ArrayList<>();
 

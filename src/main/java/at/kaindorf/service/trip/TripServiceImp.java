@@ -32,7 +32,7 @@ public class TripServiceImp implements TripService {
 
     @Override
     public Optional<Trip> getTripById(Long id) {
-        return Optional.of(tripRepository.findById(id));
+        return tripRepository.findById(id);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package at.kaindorf.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,19 +33,16 @@ public class Order {
     @JoinColumn(name = "trip")
     private Trip trip;
 
-    @OneToMany(
-            mappedBy = "order",
+    @ManyToMany(
             cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
-            fetch = FetchType.EAGER,
-            orphanRemoval = true
+            fetch = FetchType.EAGER
     )
+    @JoinTable(
+            name = "article_order",
+            joinColumns = @JoinColumn(name = "OID"),
+            inverseJoinColumns = @JoinColumn(name = "AID"))
     @ToString.Exclude
+    @JsonIgnore
     private List<Article> articles;
 
-
-    public boolean addArticle(Article article) {
-        if (article == null) return false;
-        article.setOrder(this);
-        return articles.add(article);
-    }
 }

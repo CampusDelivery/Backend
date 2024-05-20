@@ -4,6 +4,7 @@ import at.kaindorf.models.Article;
 import at.kaindorf.models.Order;
 import at.kaindorf.models.Trip;
 import at.kaindorf.models.User;
+import at.kaindorf.repositories.ArticleRepository;
 import at.kaindorf.repositories.UserRepository;
 import com.github.javafaker.Faker;
 import jakarta.annotation.PostConstruct;
@@ -29,6 +30,8 @@ public class CampusDeliveryApplication {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
     private final Faker faker = new Faker();
 
@@ -51,12 +54,13 @@ public class CampusDeliveryApplication {
         Article article2 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
         Article article3 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
         Article article4 = new Article(null, faker.food().dish(), faker.number().numberBetween(1,9), null);
+        List<Article> articles = new ArrayList<>();
+        articles.add(article1);
+        articles.add(article2);
+        articles.add(article3);
+        articles.add(article4);
 
-        order1.addArticle(article1);
-        order1.addArticle(article2);
-        order1.addArticle(article3);
-        order1.addArticle(article4);
-
+        order1.setArticles(articles);
 
         trip1.addOrder(order1);
         trip1.addOrder(order2);
@@ -69,6 +73,7 @@ public class CampusDeliveryApplication {
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+
 
     }
 

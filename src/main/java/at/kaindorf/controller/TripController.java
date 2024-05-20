@@ -34,7 +34,6 @@ public class TripController {
 
     @PostMapping("/new")
     public ResponseEntity<Trip> createTrip(@RequestBody Trip trip, @RequestParam(name = "email", required = false) String email) throws Exception {
-        System.out.println(trip.toString());
         return ResponseEntity.ok(tripServiceImp.createTrip(trip, email));
     }
     // trip/new?email=preston.fisher@yahoo.com  --> Beispiel

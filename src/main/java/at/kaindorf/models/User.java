@@ -1,6 +1,7 @@
 package at.kaindorf.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class User {
             fetch = FetchType.EAGER,
             orphanRemoval = true
     )
+    @JsonIgnore
     @ToString.Exclude
     private List<Trip> trips;
 

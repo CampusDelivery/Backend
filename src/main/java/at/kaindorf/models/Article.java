@@ -1,10 +1,13 @@
 package at.kaindorf.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -21,14 +24,13 @@ public class Article {
     @Column(nullable = false)
     private int count;
 
-    @ManyToOne(
+    @ManyToMany(
+            mappedBy = "articles",
             cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
             fetch = FetchType.EAGER
     )
-    @JoinColumn(
-            name = "realOrder"
-    )
-    private Order order;
+    @JsonIgnore
+    private List<Order> orders;
 
 
 
