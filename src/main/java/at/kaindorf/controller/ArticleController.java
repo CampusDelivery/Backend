@@ -40,10 +40,11 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Order> addArticle(@RequestBody Article article, @RequestParam(name = "order", required = false) Long orderId,
-                                                                          @RequestParam(name = "article", required = false) Long articleId) throws Exception {
+    public ResponseEntity<Order> addArticle(@RequestParam(name = "order", required = false) Long orderId,
+                                            @RequestParam(name = "article", required = false) Long articleId) throws Exception {
         return ResponseEntity.ok(articleService.addArticle(articleId, orderId));
     }
+    //article/add?order=1&article=3
 
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteArticle(@RequestBody Article article) {
