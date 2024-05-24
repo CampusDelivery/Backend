@@ -32,6 +32,16 @@ public class TripController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/byUser")
+    public ResponseEntity<Trip> getTripByUser(@RequestParam(name = "user", required = true) String user) {
+        System.out.println(user+"controller");
+        Optional<Trip> trip = tripServiceImp.getTripByUsername(user);
+        if(trip.isPresent()) {
+            return ResponseEntity.ok(trip.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping("/new")
     public ResponseEntity<Trip> createTrip(@RequestBody Trip trip, @RequestParam(name = "email", required = false) String email) throws Exception {
         return ResponseEntity.ok(tripServiceImp.createTrip(trip, email));

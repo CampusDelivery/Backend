@@ -31,6 +31,18 @@ public class TripServiceImp implements TripService {
     }
 
     @Override
+    public Optional<Trip> getTripByUsername(String username) {
+        System.out.println(username+"service");
+        Optional<User> user = userRepository.findByEmail(username);
+        System.out.println(user.get()+"user");
+        if(!user.isEmpty()) {
+            System.out.println(tripRepository.findByUser(user.get())+"trip");
+            return tripRepository.findByUser(user.get());
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<Trip> getTripById(Long id) {
         return tripRepository.findById(id);
     }

@@ -9,6 +9,7 @@ public interface TripService {
 
     Trip createTrip(Trip trip, String email) throws Exception;
     Optional<List<Trip>> getAllTrips();
+    Optional<Trip> getTripByUsername(String username);
     Optional<Trip> getTripById(Long id);
     void delete(Trip trip);
     void deleteAll();
