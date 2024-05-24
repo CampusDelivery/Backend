@@ -67,8 +67,8 @@ public class CampusDeliveryApplication {
         trip1.addOrder(order3);
 
         user1.addTrip(trip1);
-        user1.addTrip(trip2);
-        user1.addTrip(trip3);
+//        user1.addTrip(trip2);
+//        user1.addTrip(trip3);
 
         userRepository.save(user1);
         userRepository.save(user2);
