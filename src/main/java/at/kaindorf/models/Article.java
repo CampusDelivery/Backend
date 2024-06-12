@@ -28,6 +28,7 @@ public class Article {
             cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
             fetch = FetchType.EAGER
     )
+    @ToString.Exclude
     @JsonIgnore
     private List<Order> orders;
 

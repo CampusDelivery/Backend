@@ -4,10 +4,12 @@ import at.kaindorf.models.Article;
 import at.kaindorf.models.Order;
 import at.kaindorf.service.article.ArticleService;
 import at.kaindorf.service.article.ArticleServiceImp;
+import at.kaindorf.service.order.OrderServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +20,16 @@ import java.util.Optional;
 public class ArticleController {
 
     private final ArticleServiceImp articleService;
+    private final OrderServiceImp orderService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Article>> getAll() {
+    public ResponseEntity<List<Article>> getAll(@RequestParam (name="order", required=false) Optional<Long> order) {
+        if(order.isPresent()) {
+            Optional<Order> o = orderService.findOrderById(order.get());
+            if(o.isPresent()) {
+                return ResponseEntity.ok(o.get().getArticles());
+            }
+        }
         List<Article> articles = articleService.findAllArticles();
         return ResponseEntity.ok(articles);
     }

@@ -41,8 +41,7 @@ public class Order {
             name = "article_order",
             joinColumns = @JoinColumn(name = "OID"),
             inverseJoinColumns = @JoinColumn(name = "AID"))
-    @ToString.Exclude
-    @JsonIgnore
+
     private List<Article> articles;
 
 }
