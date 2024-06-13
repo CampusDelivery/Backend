@@ -23,7 +23,7 @@ public class Order {
     private Long id;
 
     @Column(nullable = false)
-    private String OrdererName;
+    private String ordererName;
 
     @ManyToOne(
             cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},

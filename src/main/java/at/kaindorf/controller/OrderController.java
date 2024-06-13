@@ -37,6 +37,7 @@ public class OrderController {
 
     @PostMapping("/new")
     public ResponseEntity<Order> createOrder(@RequestBody Order order, @RequestParam(name = "id", required = false) Long tripId) throws Exception {
+        System.out.println(order);
         return ResponseEntity.ok(orderService.createOrder(order, tripId));
     }
 
