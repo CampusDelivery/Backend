@@ -34,7 +34,7 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
-    public Optional<Order> findOrderByTrip(Long id) {
+    public Optional<List<Order>> findOrderByTrip(Long id) {
         return orderRepository.findByTripId(id);
     }
 

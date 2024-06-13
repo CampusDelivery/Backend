@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class Trip {
     @Column(nullable = false)
     private String destination;
     @Column(name = "Uhrzeit", nullable = false)
-    private LocalDate time;
+    private LocalTime time;
     @Column(nullable = false)
     private int maxNumberOfOrders;
 

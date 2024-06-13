@@ -15,6 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,9 +44,9 @@ public class CampusDeliveryApplication {
         User user2 = new User(faker.internet().emailAddress(), faker.name().firstName(), faker.name().lastName(), faker.internet().password(3,5), new ArrayList<>());
         User user3 = new User(faker.internet().emailAddress(), faker.name().firstName(), faker.name().lastName(), faker.internet().password(3,5), new ArrayList<>());
 
-        Trip trip1 = new Trip(null, faker.address().cityName(), LocalDate.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
-        Trip trip2 = new Trip(null, faker.address().cityName(), LocalDate.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
-        Trip trip3 = new Trip(null, faker.address().cityName(), LocalDate.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
+        Trip trip1 = new Trip(null, faker.address().cityName(), LocalTime.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
+        Trip trip2 = new Trip(null, faker.address().cityName(), LocalTime.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
+        Trip trip3 = new Trip(null, faker.address().cityName(), LocalTime.now(), faker.number().numberBetween(1,9),null , new ArrayList<>());
 
         Order order1 = new Order(null, faker.name().fullName(), null, new ArrayList<>());
         Order order2 = new Order(null, faker.name().fullName(), null, new ArrayList<>());
@@ -60,7 +62,12 @@ public class CampusDeliveryApplication {
         articles.add(article3);
         articles.add(article4);
 
+        List<Article> articles2 = new ArrayList<>();
+        articles2.add(new Article(null, faker.food().dish(),  null));
+        articles2.add(new Article(null, faker.food().dish(),  null));
+
         order1.setArticles(articles);
+        order2.setArticles(articles2);
 
         trip1.addOrder(order1);
         trip1.addOrder(order2);

@@ -5,6 +5,8 @@ import at.kaindorf.models.Trip;
 import at.kaindorf.repositories.OrderRepository;
 import at.kaindorf.service.order.OrderService;
 import at.kaindorf.service.order.OrderServiceImp;
+import at.kaindorf.service.trip.TripService;
+import at.kaindorf.service.trip.TripServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +21,14 @@ import java.util.Optional;
 public class OrderController {
 
     private final OrderServiceImp orderService;
+    private final TripServiceImp tripService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Order>> getAll() {
+    public ResponseEntity<List<Order>> getAll(@RequestParam (name="trip", required=false) Optional<Long> trip) {
+        if(trip.isPresent()) {
+            Optional<List<Order>> orders = orderService.findOrderByTrip(trip.get());
+            return ResponseEntity.ok(orders.get());
+        }
         List<Order> orders = orderService.getAllOrders();
         return ResponseEntity.ok(orders);
     }

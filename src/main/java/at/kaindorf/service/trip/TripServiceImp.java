@@ -19,8 +19,11 @@ public class TripServiceImp implements TripService {
 
     @Override
     public Trip createTrip( Trip trip, String email) throws Exception {
+        System.out.println(trip);
+        System.out.println(email);
         if(trip.getDestination().isEmpty() || trip.getTime() == null || trip.getMaxNumberOfOrders() == 0) throw new Exception("Missing Attribute");
         Optional<User> user = userRepository.findByEmail(email);
+        System.out.println("user: " + user);
         trip.setUser(user.get());
         return tripRepository.save(trip);
     }
@@ -32,12 +35,11 @@ public class TripServiceImp implements TripService {
 
     @Override
     public Optional<Trip> getTripByUsername(String username) {
-        System.out.println(username+"service");
         Optional<User> user = userRepository.findByEmail(username);
         System.out.println(user.get()+"user");
         if(!user.isEmpty()) {
-            System.out.println(tripRepository.findByUser(user.get())+"trip");
-            return tripRepository.findByUser(user.get());
+            System.out.println(tripRepository.findByUserEmail(user.get().getEmail())+"trip");
+            return tripRepository.findByUserEmail(username);
         }
         return Optional.empty();
     }

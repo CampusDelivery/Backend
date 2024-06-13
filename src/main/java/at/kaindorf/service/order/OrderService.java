@@ -10,7 +10,7 @@ public interface OrderService {
 
     Order createOrder(Order order, Long tripId) throws Exception;
     Optional<Order> findOrderById(Long id);
-    Optional<Order> findOrderByTrip(Long id);
+    Optional<List<Order>> findOrderByTrip(Long id);
     List<Order> getAllOrders();
     void delete(Order order);
     void deleteAll();
