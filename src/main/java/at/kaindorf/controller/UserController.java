@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static at.kaindorf.service.Encryption.encrypt;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -54,7 +56,9 @@ public class UserController {
     public ResponseEntity<User> login(@RequestBody User user) {
         Optional<User> dbUser = userServiceImp.getUserByEmail(user.getEmail());
         if(dbUser.isPresent()) {
-            if(dbUser.get().getPassword().equals(user.getPassword())) {
+            String pw = encrypt(user.getPassword());
+            System.out.println(pw +"\n"+dbUser.get().getPassword());
+            if(pw.equals(dbUser.get().getPassword())) {
                 return ResponseEntity.ok().body(dbUser.get());
             }
             return ResponseEntity.badRequest().build();   //400 bad request --> passwort stimmt nicht

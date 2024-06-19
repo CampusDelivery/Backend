@@ -6,21 +6,28 @@ import at.kaindorf.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static at.kaindorf.service.Encryption.encrypt;
+
 @Service
 @RequiredArgsConstructor
-public class UserServiceImp implements  UserService{
+public class UserServiceImp implements  UserService {
 
     private final UserRepository userRepository;
 
     @Override
     public User createUser(User user) throws Exception {
-        if(user.getEmail().isEmpty() || user.getPassword().isEmpty() || user.getLastname().isEmpty() || user.getFirstname().isEmpty()) throw new Exception("Misssing Attribute");
-        if(!userRepository.findByEmail(user.getEmail()).isEmpty()) throw new Exception("User already exists");
-        if(user.getTrips() == null) user.setTrips(new ArrayList<>());
+        if (user.getEmail().isEmpty() || user.getPassword().isEmpty() || user.getLastname().isEmpty() || user.getFirstname().isEmpty())
+            throw new Exception("Misssing Attribute");
+        if (!userRepository.findByEmail(user.getEmail()).isEmpty()) throw new Exception("User already exists");
+        if (user.getTrips() == null) user.setTrips(new ArrayList<>());
+        String pw = encrypt(user.getPassword());
+        user.setPassword(pw);
         return userRepository.save(user);
     }
 
@@ -33,7 +40,6 @@ public class UserServiceImp implements  UserService{
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
 
 
     @Override
@@ -51,4 +57,6 @@ public class UserServiceImp implements  UserService{
         Optional<User> find = userRepository.findByEmail(email);
         find.ifPresent(this::delete);
     }
+
 }
+

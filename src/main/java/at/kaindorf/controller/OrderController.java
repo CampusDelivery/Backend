@@ -43,8 +43,10 @@ public class OrderController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Order> createOrder(@RequestBody Order order, @RequestParam(name = "id", required = false) Long tripId) throws Exception {
+    public ResponseEntity<Order> createOrder(@RequestBody Order order, @RequestParam(name = "id", required = false) Long tripId,
+                                             @RequestParam(name = "email", required = false) String email) throws Exception {
         System.out.println(order);
+        System.out.println(email);
         return ResponseEntity.ok(orderService.createOrder(order, tripId));
     }
 
@@ -57,6 +59,13 @@ public class OrderController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTrip(@PathVariable Long id) {
         orderService.deleteOrderById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/mail")
+    public ResponseEntity<String> sendMail(@RequestParam (name = "order", required=false) Long id ){
+
+        //email schicken an die email von der order von der id
         return ResponseEntity.ok().build();
     }
 }
